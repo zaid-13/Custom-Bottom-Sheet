@@ -12,28 +12,17 @@ const BottomSheet = () => {
         onPanResponderGrant: () => {
             console.log("on Grant -----------------------------------------------------------------");
             translate.setOffset(translate._value);  // take value from _value and put into offset
+            // translate._value = 0;
             console.log("onGrant => offset", translate._offset);
             console.log("onGrant => value", translate._value);
         },
-        onPanResponderMove: (e, gestureState) => {
-            
-            if (gestureState.dy) {
-
-                console.log("onMove ------------------------------------------------------------------------")
-
-                console.log('onMove => offset', translate._offset);
-                console.log('onMove => value', translate._value);
-
-                return Animated.event([
-                    null,
-                    {
-                        dy: translate
-                    }
-                ], {
-                    useNativeDriver: false
-                })(e, gestureState)
-            }
-        },
+        onPanResponderMove: Animated.event(
+            [
+              null,
+              { dy: translate }
+            ],
+            {useNativeDriver: false}
+        ),
         onPanResponderRelease: (e, gestureState) => {
             // if (translate._value < -20) {
             //     Animated.spring(translate, {
@@ -65,25 +54,39 @@ const BottomSheet = () => {
             // console.log({ ...translate })
 
 
-            if (translate._value < -30) {
+            // if (translate._value < -30) {
+            //     Animated.spring(translate, {
+            //         toValue: 0,
+            //         duration: 2000,
+            //         useNativeDriver: true
+            //     }).start()
+            //     translate._value = 0;
+            //     translate._offset = 0;
+
+            // } else if (translate._value > 100) {
+            //     Animated.spring(translate, {
+            //         toValue: 480,
+            //         duration: 2000,
+            //         useNativeDriver: true
+            //     }).start()
+            //     translate.setOffset(480);
+            //     translate.setValue(0);
+
+            //     // console.log("onRelease greater than 100");
+            // }
+
+            
+
+            if (gestureState.dy < -30) {
+                translate._value = 0;
+                
                 Animated.spring(translate, {
                     toValue: 0,
                     duration: 2000,
                     useNativeDriver: true
                 }).start()
-                translate._value = 0;
                 translate._offset = 0;
-
-            } else if (translate._value > 100) {
-                Animated.spring(translate, {
-                    toValue: 480,
-                    duration: 2000,
-                    useNativeDriver: true
-                }).start()
-                translate.setOffset(480);
-                translate.setValue(0);
-
-                // console.log("onRelease greater than 100");
+                
             }
 
             translate.flattenOffset();

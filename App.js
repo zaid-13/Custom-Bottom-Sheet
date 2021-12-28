@@ -4,15 +4,17 @@ import {
   Text,
   View,
 } from 'react-native';
-import BottomSheet from './src/components/BottomSheet';
-// import BottomSheetV4 from './src/components/BottomSheetUpdated';
+// import BottomSheet from './src/components/BottomSheet';
+import BottomSheetV2 from './src/components/BottomSheetV2';
+// import Example from './src/components/exampleCode';
 
 const App = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <BottomSheet />
-      {/* <BottomSheetV4 /> */}
+      {/* <BottomSheet /> */}
+      {/* <Example /> */}
+      <BottomSheetV2 />
     </View>
   );
 };
